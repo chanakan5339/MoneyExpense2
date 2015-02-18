@@ -1,21 +1,17 @@
 package com.example.student.moneyexpense;
 
-        import android.content.Intent;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.support.v7.app.ActionBarActivity;
-        import android.os.Bundle;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Toast;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class recents extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.recents);
 
     }
 
@@ -25,23 +21,6 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    public void buttonClicked(View v) {
-        int id = v.getId();
-        Intent i;
-
-        switch(id) {
-            case R.id.button:
-                i = new Intent(this, add.class);
-                startActivity(i);
-                break;
-
-            case R.id.button2:
-                i = new Intent(this, recents.class);
-                startActivity(i);
-                break;
-        }
     }
 
     @Override

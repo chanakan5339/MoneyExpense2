@@ -16,6 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".add"
+            android:label="Add">
+
+        </activity>
+
+        <activity
+            android:name=".recents"
+            android:label="Recent">
+
+        </activity>
+
     </application>
 
 </manifest>
