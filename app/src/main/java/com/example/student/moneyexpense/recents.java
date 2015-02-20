@@ -1,9 +1,18 @@
 package com.example.student.moneyexpense;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+import android.content.Intent;
 
 
 public class recents extends ActionBarActivity {
@@ -13,6 +22,7 @@ public class recents extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recents);
 
+
     }
 
 
@@ -21,6 +31,23 @@ public class recents extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void buttonClicked(View v) {
+        int id = v.getId();
+        Intent i;
+
+        switch(id) {
+            case R.id.button6:
+                i = new Intent(this, MainActivity.class);
+                startActivity(i);
+                break;
+
+            case R.id.button7:
+                i = new Intent(this, add.class);
+                startActivity(i);
+                break;
+        }
     }
 
     @Override
