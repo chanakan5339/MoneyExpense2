@@ -84,5 +84,6 @@
         android:layout_below="@+id/spinner2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:textSize="35dp" />
+        android:textSize="35dp"
+        android:onClick="addClicked" />
 </RelativeLayout>

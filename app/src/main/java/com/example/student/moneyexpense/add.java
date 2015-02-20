@@ -1,6 +1,8 @@
 package com.example.student.moneyexpense;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -67,27 +69,29 @@ public class add extends ActionBarActivity {
     }
 
     public void addClicked(View v) {
-     /* EditText editText = (EditText)findViewById(R.id.editText);
+      EditText editText = (EditText)findViewById(R.id.editText);
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
 
 
         String text = editText.getText().toString();
-        String spinner_1 = spinner.getText().toString();
-        String spinner_2 = spinner2.getText().toString();
+        String spinner_1 = spinner.getSelectedItem().toString();
+        String spinner_2 = spinner2.getSelectedItem().toString();
 
 
-           //Toast t = Toast.makeText(this.getApplicationContext(),
-           //         "Added",
-           //         Toast.LENGTH_SHORT);
-           //t.show();
+           Toast t = Toast.makeText(this.getApplicationContext(),
+                    "Added",
+                    Toast.LENGTH_SHORT);
+           t.show();
 
-            Intent result = new Intent();
-            result.putExtra("amount", text);
-            result.putExtra("date", spinner_1 );
-            result.putExtra("category",spinner_2 );
-            this.setResult(RESULT_OK, result);
-            this.finish(); */
+        DBhelper helper = new DBhelper(this);
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues r = new ContentValues();
+        r.put("amount", text);
+        r.put("date", spinner_1);
+        r.put("category", spinner_2);
+        long new_id = db.insert("expense", null, r);
         }
 
     @Override
