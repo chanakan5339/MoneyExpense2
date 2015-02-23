@@ -18,9 +18,9 @@ public class DBhelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE expense (" +
                 "_id integer primary key autoincrement," +
-                "amount text not null," +             // course code
-                "date text not null," +           // credit
-                "category text not null,);";         // grade value e.g. 4, 3.5
+                "amount text not null," +           // credit
+                "date text not null," +            // letter grade e.g. A, B+
+                "category text not null);";         // grade value e.g. 4, 3.5
         db.execSQL(sql);
     }
 

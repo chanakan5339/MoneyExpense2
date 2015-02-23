@@ -23,18 +23,18 @@ public class add extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add);
 
-        this.arraySpinner = new String[] {
-                "Today", "Yesterday", "2 Days Ago", "3 Days Ago", "4 Days Ago" , "5 Days Ago"
-                , "6 Days Ago" , "7 Days Ago"
+        this.arraySpinner = new String[]{
+                "Today", "Yesterday", "2 Days Ago", "3 Days Ago", "4 Days Ago", "5 Days Ago"
+                , "6 Days Ago", "7 Days Ago"
         };
         Spinner s = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
 
-        this.arraySpinner = new String[] {
-                "General", "Clothes", "Food", "Rent", "House" , "Insurance" , "Health" ,
-                "Travel" , "Leisure" , "Pet" , "Fuel" , "Car" , "Education" , "Sport" ,
+        this.arraySpinner = new String[]{
+                "General", "Clothes", "Food", "Rent", "House", "Insurance", "Health",
+                "Travel", "Leisure", "Pet", "Fuel", "Car", "Education", "Sport",
                 "Music"
         };
         Spinner s2 = (Spinner) findViewById(R.id.spinner2);
@@ -44,18 +44,18 @@ public class add extends ActionBarActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     public void buttonClicked(View v) {
         int id = v.getId();
         Intent i;
 
-        switch(id) {
+        switch (id) {
             case R.id.button3:
                 i = new Intent(this, MainActivity.class);
                 startActivity(i);
@@ -69,9 +69,9 @@ public class add extends ActionBarActivity {
     }
 
     public void addClicked(View v) {
-      EditText editText = (EditText)findViewById(R.id.editText);
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
-        Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
+        EditText editText = (EditText) findViewById(R.id.editText);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
 
 
         String text = editText.getText().toString();
@@ -79,10 +79,10 @@ public class add extends ActionBarActivity {
         String spinner_2 = spinner2.getSelectedItem().toString();
 
 
-           Toast t = Toast.makeText(this.getApplicationContext(),
-                    "Added",
-                    Toast.LENGTH_SHORT);
-           t.show();
+        Toast t = Toast.makeText(this.getApplicationContext(),
+                "Added",
+                Toast.LENGTH_SHORT);
+        t.show();
 
         DBhelper helper = new DBhelper(this);
 
@@ -94,18 +94,20 @@ public class add extends ActionBarActivity {
         long new_id = db.insert("expense", null, r);
         }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        @Override
+        public boolean onOptionsItemSelected (MenuItem item){
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-}
+
+
