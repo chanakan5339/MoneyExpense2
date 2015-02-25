@@ -13,15 +13,38 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.content.Intent;
+import android.view.View.OnLongClickListener;
 
 
-public class recents extends ActionBarActivity {
+public class recents extends ActionBarActivity
+
+        implements AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener{
+
+    DBhelper helper;
+    SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recents);
 
+        helper = new DBhelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT _id, amount, date||' ('||category||')' g FROM expense Order By date Desc",null);
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_2, // A textview
+                cursor, // cursor to a data collection
+                new String[] {"amount","g"}, // column to be displayed
+                new int[] {android.R.id.text1,android.R.id.text2}, // ID of textview to display
+                0);
+
+        ListView lv = (ListView)findViewById(R.id.listView);
+        lv.setAdapter(adapter);
+
+
+        lv.setOnItemLongClickListener(this);
 
     }
 
@@ -64,4 +87,46 @@ public class recents extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view,
+                            int position, long id) {
+        Log.d("course", id + " is clicked");
+    }
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                   int position, long id) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        int n = db.delete("expense",
+                "_id = ?",
+                new String[]{Long.toString(id)});
+
+        if (n == 1) {
+            Toast t = Toast.makeText(this.getApplicationContext(),
+                    "Successfully deleted the selected item.",
+                    Toast.LENGTH_SHORT);
+            t.show();
+
+            // retrieve a new collection of records
+            Cursor cursor = db.rawQuery("SELECT _id, amount, date||' ('||category||')' g FROM expense Order By date Desc",null);
+
+            // update the adapter
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                    android.R.layout.simple_list_item_2, // A textview
+                    cursor, // cursor to a data collection
+                    new String[] {"amount","g"}, // column to be displayed
+                    new int[] {android.R.id.text1,android.R.id.text2}, // ID of textview to display
+                    0);
+
+            adapter.changeCursor(cursor);
+            ListView lv = (ListView)findViewById(R.id.listView);
+            lv.setAdapter(adapter);
+
+        }
+        db.close();
+        return true;
+    }
+
 }

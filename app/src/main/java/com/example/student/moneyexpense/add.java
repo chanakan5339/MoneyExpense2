@@ -13,6 +13,10 @@ import android.widget.Toast;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class add extends ActionBarActivity {
 
@@ -86,13 +90,61 @@ public class add extends ActionBarActivity {
 
         DBhelper helper = new DBhelper(this);
 
-        SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues r = new ContentValues();
+
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        //ContentValues r = new ContentValues();
         r.put("amount", text);
-        r.put("date", spinner_1);
-        r.put("category", spinner_2);
-        long new_id = db.insert("expense", null, r);
+        if(spinner_1.toString().equals("Today"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",0));
         }
+        else if(spinner_1.toString().equals("Yesterday"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-1));
+        }
+        else if(spinner_1.toString().equals("2 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-2));
+        }
+        else if(spinner_1.toString().equals("3 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-3));
+        }
+        else if(spinner_1.toString().equals("4 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-4));
+        }
+        else if(spinner_1.toString().equals("5 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-5));
+        }
+        else if(spinner_1.toString().equals("6 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-6));
+        }
+        else if(spinner_1.toString().equals("7 Days Ago"))
+        {
+            r.put("date", getCalculatedDate("dd/MM/yyyy",-7));
+        }
+
+        r.put("category", spinner_2);
+        db.insert("expense", null, r);
+        }
+
+    public String getCalculatedDate(String dateFormat, int days) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat s = new SimpleDateFormat(dateFormat);
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        return s.format(new Date(cal.getTimeInMillis()));
+    }
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){

@@ -1,5 +1,6 @@
 package com.example.student.moneyexpense;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,11 +23,13 @@ public class DBhelper extends SQLiteOpenHelper {
                 "date text not null," +            // letter grade e.g. A, B+
                 "category text not null);";         // grade value e.g. 4, 3.5
         db.execSQL(sql);
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS course;";
+        String sql = "DROP TABLE IF EXISTS expense;";
         db.execSQL(sql);
         this.onCreate(db);
     }

@@ -21,14 +21,20 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+         helper = new DBhelper(this);
+
         SQLiteDatabase db = helper.getReadableDatabase();
-       /* Cursor cursor = db.rawQuery("SELECT amount FROM expense;", null);
-        cursor.moveToFirst();
-        String totalcredit = cursor.getString(0); // get the first row
+        Cursor cursor = db.rawQuery("SELECT sum(amount) FROM expense;", null);
 
-        TextView totalspend = (TextView)findViewById(R.id.textView);
-        totalspend.setText(String.format("%.2f",totalcredit));*/
 
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+            String totalcredit = cursor.getString(0); // get the first row
+
+            TextView totalspend = (TextView) findViewById(R.id.textView);
+            totalspend.setText(totalcredit);
+        }
     }
 
 
